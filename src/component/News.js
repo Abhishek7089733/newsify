@@ -1,7 +1,11 @@
+
 import React, { Component } from 'react'
 import { Newsitem } from './Newsitem'   // ✅ default export fixed
 import Spinner from './Spinner';
 import PropTypes from 'prop-types'
+const YOUR_API_KEY = process.env.REACT_APP_NEWS_API_KEY;
+
+console.log( "api keey:", YOUR_API_KEY);
 
 
 export class News extends Component {
@@ -51,8 +55,9 @@ export class News extends Component {
   }
 
   async componentDidMount() {
+    
    
-    let url = `https://newsapi.org/v2/everything?q=${this.props.country}&page=1&pageSize=${this.props.pageSize}&apiKey=f307ec03ac7644abbc77da8c047a91c0`;
+  let url = `https://newsapi.org/v2/everything?q=${this.props.country}&page=1&pageSize=${this.props.pageSize}&apiKey=${YOUR_API_KEY}`;
     this.setState({ loading: true });
 
     let data = await fetch(url);
@@ -63,7 +68,7 @@ export class News extends Component {
 
   handlePrevClick = async () => {
     console.log("Previous");
-    let url = `https://newsapi.org/v2/everything?q=${this.props.country}&page=${this.state.page - 1}&pageSize=${this.props.pageSize}&apiKey=f307ec03ac7644abbc77da8c047a91c0`;
+    let url = `https://newsapi.org/v2/everything?q=${this.props.country}&page=${this.state.page - 1}&pageSize=${this.props.pageSize}&apiKey=${YOUR_API_KEY}`;
     this.setState({ loading: true });
 
     let data = await fetch(url);
@@ -82,7 +87,7 @@ export class News extends Component {
     if (this.state.page + 1 > Math.ceil(this.state.totalResults / this.props.pageSize)) {
       // do nothing
     } else {
-      let url = `https://newsapi.org/v2/everything?q=${this.props.country}&page=${this.state.page + 1}&pageSize=${this.props.pageSize}&apiKey=f307ec03ac7644abbc77da8c047a91c0`;
+      let url = `https://newsapi.org/v2/everything?q=${this.props.country}&page=${this.state.page + 1}&pageSize=${this.props.pageSize}&apiKey=${YOUR_API_KEY}`;
       this.setState({ loading: true });
 
       let data = await fetch(url);
@@ -99,7 +104,6 @@ export class News extends Component {
   render() {
     return (
       <div className="container my-3">
-        <h1 className="text-center" style={{margin: '35px 0px', marginTop: '90px'}}>NewsMonkey - Top Headlines</h1>
         {this.state.loading && <Spinner />}
         <div className="row">
           {!this.state.loading && this.state.articles && this.state.articles.map((element) => {
