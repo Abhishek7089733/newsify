@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Newsitem } from './Newsitem'   // ✅ default export fixed
 import Spinner from './Spinner';
 import PropTypes from 'prop-types'
-const YOUR_API_KEY = process.env.REACT_APP_NEWS_API_KEY;
+const YOUR_API_KEY = 'f307ec03ac7644abbc77da8c047a91c0';
 
 console.log( "api keey:", YOUR_API_KEY);
 
